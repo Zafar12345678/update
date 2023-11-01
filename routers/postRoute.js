@@ -27,6 +27,6 @@ const upload = multer({ storage: storage });
 const post_controllers = require("../controllers/postController");
 post_route.post("/post-route",upload.single("image"), post_controllers.post_creat);
 post_route.get("/gate-route",post_controllers.getGatedata);
-// post_route.get("/gate-image",post_controllers.get_image)
+post_route.get('/get-image/:image', post_controllers.getimage);
 
 module.exports = post_route;  // Export the router instance
