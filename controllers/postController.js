@@ -14,6 +14,7 @@ const post_creat = async (req, res) => {
     } 
      }
     const path = require('path');
+const { post } = require("../routers/postRoute");
 
     const getimage = async (req, res) => {
         try {
@@ -51,11 +52,43 @@ const getGatedata = async(req,res)=>{
         res.status(400).send({ success: false, msg: error.message })
     };
 };
+// update data:::-
 
+const update_data = async (req, res) => {
+
+    try {
+      // const id = req.body.id;
+      const id = req.params.id;
+      // we have to pass id as a prameter in url
+  
+      const ValidID = await Post.findOne({ _id: id });
+  
+      if (ValidID) {
+
+          const newtitle =  req.body.title;
+        const newdate = req.body.date;
+        // const newimage = req.file.filename;
+        const newimage = req.file.filename;
+  
+        const userData = await Post.findByIdAndUpdate({ _id: id }, {
+          $set: { title: newtitle, date: newdate ,/*,image: newimage*/image:newimage}
+        });
+        res.status(200).send({ success: true, msg: "Your data has been updated" })
+      }
+      else {
+        res.status(200).send("Invalid User ID ");
+      }
+    }
+    catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
+  
 
 
 module.exports = {
     post_creat,
     getGatedata,
-    getimage
+    getimage,
+    update_data
 };

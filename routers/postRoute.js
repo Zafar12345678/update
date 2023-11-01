@@ -28,5 +28,6 @@ const post_controllers = require("../controllers/postController");
 post_route.post("/post-route",upload.single("image"), post_controllers.post_creat);
 post_route.get("/gate-route",post_controllers.getGatedata);
 post_route.get('/get-image/:image', post_controllers.getimage);
+post_route.put("/update-data/:id",upload.single("image"),post_controllers.update_data);
 
 module.exports = post_route;  // Export the router instance
